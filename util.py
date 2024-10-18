@@ -53,3 +53,18 @@ def perlin(
     n1 = n01*(1-t[:,:,0]) + t[:,:,0]*n11
 
     return np.sqrt(2)*((1-t[:,:,1])*n0 + t[:,:,1]*n1)
+
+
+def distance(p1: tuple[int,int], p2: tuple[int,int]):
+    return np.sqrt((p1[0] - p2[0])**2 + (p1[1] - p2[1])**2)
+
+def draw_rectangle(x, y, width: int, height: int, rotation: int=0) -> tuple[int,int]:
+    points = []
+    radius = np.sqrt((height / 2)**2 + (width / 2)**2)
+    angle = np.arctan2(height / 2, width / 2)
+    rot_radians = (np.pi / 180) * rotation
+    for angle in [angle, -angle + np.pi, angle + np.pi, -angle]:
+        y_offset = -1 * radius * np.sin(angle + rot_radians)
+        x_offset = radius * np.cos(angle + rot_radians)
+        points.append((x + x_offset, y + y_offset))
+    return points 

@@ -2,7 +2,7 @@ import os
 import pygame as pg
 
 from tile import Tile
-
+from util import distance
 
 def load_images(path: str) -> list[pg.Surface]:
     """
@@ -45,7 +45,7 @@ class Belt:
         self.start_pos = start_pos
         self.end_pos = end_pos
         
+        self.rect = pg.Rect( width=distance(start_pos, end_pos), height=20)
+
     def draw(self, surface: pg.Surface):
-        pg.draw.line(surface, (0,0,0), self.start_pos, (self.start_pos[0], self.end_pos[1]), 20)
-        pg.draw.line(surface, (0,0,0), (self.start_pos[0], self.end_pos[1]), self.end_pos, 20)
-        pg.draw.rect(surface, (0,0,0), pg.Rect(self.start_pos[0]- 9, self.end_pos[1] -9, 20, 20))
+        pg.draw.line(surface, (0,0,0), self.start_pos, self.end_pos, 20)
