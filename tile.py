@@ -73,6 +73,10 @@ class Grid:
             self.tiles[item].draw(self.surface)
     
 
+class Chunk:
+    def __init__(self, ground_map: GroundMap, objects: dict[str, type]) -> None:
+        pass
+
 
 if __name__ == "__main__":
     print('This is a module and therefore cannot be executed.')

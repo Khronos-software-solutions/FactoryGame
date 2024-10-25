@@ -5,7 +5,7 @@ This is a module with functions too general to be categorized in seperate files
 import numpy as np
 
 def perlin(
-        shape: tuple[int, int], res: tuple[int, int], tileable: tuple[bool, bool] = (False, False)):
+        generator: np.random.Generator, shape: tuple[int, int], res: tuple[int, int], tileable: tuple[bool, bool] = (False, False)):
     """Generate a 2D numpy array of perlin noise.
 
     Args:
@@ -26,7 +26,7 @@ def perlin(
              .transpose(1, 2, 0) % 1
 
     # Gradients
-    angles = 2*np.pi*np.random.rand(res[0]+1, res[1]+1)
+    angles = 2*np.pi*generator.random((res[0]+1, res[1]+1))
     gradients = np.dstack((np.cos(angles), np.sin(angles)))
 
     if tileable[0]:
