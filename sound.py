@@ -3,6 +3,8 @@ import os
 import pygame as pg
 import yaml
 
+
+
 class SoundHandler:
     def __init__(self) -> None:
         pg.mixer.init(48000, channels=2, buffer=256)

@@ -1,6 +1,11 @@
 import pygame as pg
 from random import randint
 
+from logger import Logger
+from generate import GroundMap
+
+console = Logger('./config/general.yml')
+
 class Tile:
     def __init__(self, pos: tuple[int,int], size: tuple[int,int] | None = (50,50),texture: pg.Surface = pg.Surface((50,50))) -> None:
         self.x = pos[0]
@@ -44,13 +49,10 @@ class Grid:
             for x in range(self.size[0]):
                 self.map.append([])
                 for y in range(self.size[1]):
-                    print((x+y) % 2 == 0)
                     if (x + y) % 2 == 0:
                         self.map[x].append((100,100,100))
                     else:
                         self.map[x].append((200,200,200))
-
-        print(self.map)
         
         for y in range(self.size[1]):
             for x in range(self.size[0]):
@@ -71,13 +73,11 @@ class Grid:
 
         for item in self.tiles:
             self.tiles[item].draw(self.surface)
-    
 
 class Chunk:
     def __init__(self, ground_map: GroundMap, objects: dict[str, type]) -> None:
         pass
 
-
 if __name__ == "__main__":
-    print('This is a module and therefore cannot be executed.')
-    print('You can use this module by importing it into another script using `import tile`')
+    console.info('This is a module and therefore cannot be executed.')
+    console.info('You can use this module by importing it into another script using `import tile`')

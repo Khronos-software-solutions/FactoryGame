@@ -1,4 +1,5 @@
 import sys
+from logger import Logger
 
 import pygame as pg
 
@@ -7,8 +8,12 @@ import machine
 
 from camera import CameraInstance
 from sound import SoundHandler
+from util import loadYML, isIntersecting
 
 pg.init()
+
+config = loadYML('./config/general.yml')
+loglevel = config['loglevel']
 
 FONT = pg.font.SysFont('Sans Serif', 30)
 
@@ -33,6 +38,8 @@ WHITE = (255, 255, 255)
 BLACK = (0, 0, 0)
 
 pg.display.set_caption("Game")
+
+console = Logger(configpath='./config/general.yml')
 
 sounds: SoundHandler = SoundHandler()
 sounds.loadSounds()
@@ -62,12 +69,12 @@ class Player:
         if self.vel_x <= self.max_vel and self.vel_x >= -self.max_vel:
                 self.vel_x += vel_x
         else:
-            print('you\'re going too fast!')
+            console.debug('you\'re going too fast!')
             
         if self.vel_y <= self.max_vel and self.vel_y >= -self.max_vel:
             self.vel_y += vel_y
         else:
-            print('you\'re going too fast!')
+            console.debug('you\'re going too fast!')
             
         
         new_x = self.x + self.vel_x
@@ -106,10 +113,6 @@ class Machine:
 
     def collides_with(self, other_rect: pg.Rect):
         return self.rect.colliderect(other_rect)
-    
-    def update(self):
-        print()
-        # Do nothing yet
 
 class Miner(Machine):
     def __init__(self, x: int, y: int):
@@ -196,10 +199,10 @@ while running:
                 selectedBuilding = 5
             elif k == pg.K_6:
                 selectedBuilding = 6
-            print(selectedBuilding)
+            console.debug(f'selectedBuilding is {selectedBuilding}')
         elif event.type == pg.MOUSEBUTTONDOWN:
             mouse = event
-            print(mouse)
+            console.debug(str(mouse))
 
     
     keys = pg.key.get_pressed()
@@ -218,19 +221,16 @@ while running:
     if selectedBuilding != previousSelectedBuilding:
         sounds.playSound('change-building')
         previousSelectedBuilding = selectedBuilding
-        
-    
 
     world_grid.update()
     world = world_grid.surface
-    
-    
+
     cur = pg.Rect(grid(camera.pos[0] + pg.mouse.get_pos()[0] ),grid(camera.pos[1] + pg.mouse.get_pos()[1]),10,10)
 
     pg.draw.rect(world, BLACK, cur)
-    
+
     can_place: bool = True
-    
+
     if mouse:
         if getattr(mouse, 'button') == 1:
             for i in objects:
@@ -244,14 +244,14 @@ while running:
                 objects.update({f'miner_{len(objects)}': Miner(grid(camera.pos[0] + pg.mouse.get_pos()[0]),grid(camera.pos[1] + pg.mouse.get_pos()[1]))})
                 sounds.playSound('build-small')
             else:
-                print(f'Cannot place object "miner_{len(objects)}" at x:{grid(camera.pos[0] + pg.mouse.get_pos()[0] )}, y:{grid(camera.pos[1] + pg.mouse.get_pos()[1])}; Space is possibly occupied!')
+                console.info(f'Cannot place object "miner_{len(objects)}" at x:{grid(camera.pos[0] + pg.mouse.get_pos()[0] )}, y:{grid(camera.pos[1] + pg.mouse.get_pos()[1])}; Space is possibly occupied!')
 
     temp_objects = objects.copy()
     selectedObjects: list[str] = []
     for i in temp_objects:
         if objects[i].selected:
             selectedObjects.append(i)
-        
+
         objects[i].draw(world)
         objects[i].update()
         if temp_objects[i].collides_with(cur):
@@ -264,8 +264,15 @@ while running:
                 else:
                     objects[i].selected = True
                 objects[i].update()
-                    
-        
+    del temp_objects
+    
+    temp_belts = belts.copy()
+    for i in temp_belts:
+        if isIntersecting(i.start_pos, i.end_pos, cur.topleft, (cur.topleft[0] + 50, cur.topleft[1] + 50)) or isIntersecting(i.start_pos, i.end_pos, (cur.topleft[0], cur.topleft[1] + 50), (cur.topleft[0], cur.topleft[1] + 50)):
+            if pg.mouse.get_pressed()[2]:
+                belts.remove(i)
+
+    del temp_belts
 
     if len(selectedObjects) == 2:
         objects[selectedObjects[0]].selected = False
@@ -273,7 +280,7 @@ while running:
         belts.append(machine.Belt((objects[selectedObjects[0]].x + (GRID_SIZE // 2), objects[selectedObjects[0]].y + (GRID_SIZE // 2)), (objects[selectedObjects[1]].x + (GRID_SIZE // 2), objects[selectedObjects[1]].y + (GRID_SIZE // 2))))
         sounds.playSound('belt-connect')
         selectedObjects = []
-    
+        
     for i in belts:
         i.draw(world)
     

@@ -44,8 +44,15 @@ class Belt:
     def __init__(self, start_pos: tuple[float, float], end_pos: tuple[float, float]):
         self.start_pos = start_pos
         self.end_pos = end_pos
-        
-        self.rect = pg.Rect( width=distance(start_pos, end_pos), height=20)
 
     def draw(self, surface: pg.Surface):
         pg.draw.line(surface, (0,0,0), self.start_pos, self.end_pos, 20)
+
+class Machine:
+    """Base class for objects that have (an) input(s) and/or output(s)
+    """
+    def __init__(self, pos: tuple[int,int], size: tuple[int,int], sprite: Sprite):
+        self.pos = pos
+        self.size = size
+        self.sprite = sprite
+        

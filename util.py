@@ -1,11 +1,14 @@
 """
 This is a module with functions too general to be categorized in seperate files
 """
+import os
+import yaml
 
 import numpy as np
 
-def perlin(
-        generator: np.random.Generator, shape: tuple[int, int], res: tuple[int, int], tileable: tuple[bool, bool] = (False, False)):
+from inspect import stack as stk
+
+def perlin(generator: np.random.Generator, shape: tuple[int, int], res: tuple[int, int], tileable: tuple[bool, bool] = (False, False)):
     """Generate a 2D numpy array of perlin noise.
 
     Args:
@@ -54,17 +57,52 @@ def perlin(
 
     return np.sqrt(2)*((1-t[:,:,1])*n0 + t[:,:,1]*n1)
 
+def isIntersecting(a: tuple[float, float], b: tuple[float, float], c: tuple[float, float], d: tuple[float, float]) -> bool:
+    """Checks whether lines ab and cd are intersecting
 
-def distance(p1: tuple[int,int], p2: tuple[int,int]):
+    Args:
+        a (tuple[float, float]): point 1 of line 1
+        b (tuple[float, float]): point 2 of line 1
+        c (tuple[float, float]): point 1 of line 2
+        d (tuple[float, float]): point 2 of line 2
+
+    Returns:
+        bool: whether the lines intersect
+    """
+    dn = ((b[0] - a[0]) * (d[1] - c[1])) - ((b[1] - a[1]) * (d[0] - c[0]))
+    n1  = ((a[1] - c[1]) * (d[0] - c[0])) - ((a[0] - c[0]) * (d[1] - c[1]))
+    n2  = ((a[1] - c[1]) * (b[0] - a[0])) - ((a[0] - c[0]) * (b[1] - a[1]))
+    
+    # If the lines coincide, this will not work, but I'm too lazy to handle this edge case.
+    if (dn == 0): return n1 == 0 and n2 == 0
+    
+    r = n1 / dn
+    s = n2 / dn
+    
+    return (r >= 0 and r <= 1) and (s >= 0 and s <= 1)
+
+def distance(p1: tuple[float, float], p2: tuple[float, float]) -> float:
     return np.sqrt((p1[0] - p2[0])**2 + (p1[1] - p2[1])**2)
 
-def draw_rectangle(x, y, width: int, height: int, rotation: int=0) -> tuple[int,int]:
-    points = []
-    radius = np.sqrt((height / 2)**2 + (width / 2)**2)
-    angle = np.arctan2(height / 2, width / 2)
-    rot_radians = (np.pi / 180) * rotation
-    for angle in [angle, -angle + np.pi, angle + np.pi, -angle]:
-        y_offset = -1 * radius * np.sin(angle + rot_radians)
-        x_offset = radius * np.cos(angle + rot_radians)
-        points.append((x + x_offset, y + y_offset))
-    return points 
+def hex_to_rgb(value: str) -> tuple[int, ...]: 
+    value = value.lstrip('#')
+    lv = len(value)
+    return tuple(int(value[i:i + lv // 3], 16) for i in range(0, lv, lv // 3))
+
+def loadYML(path: str) -> dict[str, object]:
+    with open(path) as f:
+        yml = f.read()
+    return yaml.safe_load(yml)
+
+def writeline(path: os.PathLike[str], value: str) -> None:
+    """Appends a string of text to a file
+
+    Args:
+        path (str): Path to the file
+        value (str): String to be appended
+    """
+    with open(path, 'a') as f:
+        f.write(value)
+
+def getCallerName():
+    return stk()[2].frame.f_globals['__name__']

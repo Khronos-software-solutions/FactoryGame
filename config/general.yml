@@ -1,0 +1,3 @@
+# Logevel: filters every log lower than the set value from `stdout`. If set to silent, no log file will be created.
+# possible values: debug, info, warn, error, silent
+loglevel: "debug"

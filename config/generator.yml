@@ -1,0 +1,11 @@
+tiles: 
+  - name: "grass"
+    color: "#0CA004"
+    texture: 
+    upper: 0.93
+    lower: 0.76
+  - name: "moss"
+    color: "#055600"
+    texture: 
+    upper: 1.0
+    lower: 0.93

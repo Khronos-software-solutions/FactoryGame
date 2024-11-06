@@ -1,5 +1,9 @@
 import pygame as pg
 
+from logger import Logger
+
+console = Logger('./config/general.yml')
+
 class CameraInstance:
     def __init__(self, size: tuple[int, int], pos: tuple[float, float], show_fps: bool = False):
         self.size: tuple[int, int] = size
@@ -39,5 +43,5 @@ class CameraInstance:
             self.screen.blit(self.FONT.render(str(round(clock.get_fps(), 2)), False, pg.Color(0,0,0)), (0,0))
 
 if __name__ == "__main__":
-    print('This is a module and therefore cannot be executed.')
-    print('You can use this module by importing it into another script using `import camera`')
+    console.info('This is a module and therefore cannot be executed.')
+    console.info('You can use this module by importing it into another script using `import camera`')
