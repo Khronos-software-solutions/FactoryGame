@@ -1,7 +1,6 @@
 """
 This is a module with functions too general to be categorized in seperate files
 """
-import os
 import yaml
 
 import numpy as np
@@ -74,12 +73,22 @@ def isIntersecting(a: tuple[float, float], b: tuple[float, float], c: tuple[floa
     n2  = ((a[1] - c[1]) * (b[0] - a[0])) - ((a[0] - c[0]) * (b[1] - a[1]))
     
     # If the lines coincide, this will not work, but I'm too lazy to handle this edge case.
-    if (dn == 0): return n1 == 0 and n2 == 0
+    if (dn == 0): 
+        return n1 == 0 and n2 == 0
     
     r = n1 / dn
     s = n2 / dn
     
     return (r >= 0 and r <= 1) and (s >= 0 and s <= 1)
+
+def quadratic_bezier(start: tuple[float, float], control: tuple[float, float], end: tuple[float, float], steps: int = 100) -> list[tuple[float, float]]:
+    points: list[tuple[float, float]] = []
+    for t in range(steps + 1):
+        t /= steps
+        x = (1 - t)**2 * start[0] + 2 * (1 - t) * t * control[0] + t**2 * end[0]
+        y = (1 - t)**2 * start[1] + 2 * (1 - t) * t * control[1] + t**2 * end[1]
+        points.append((x, y))
+    return points
 
 def distance(p1: tuple[float, float], p2: tuple[float, float]) -> float:
     return np.sqrt((p1[0] - p2[0])**2 + (p1[1] - p2[1])**2)
@@ -94,7 +103,7 @@ def loadYML(path: str) -> dict[str, object]:
         yml = f.read()
     return yaml.safe_load(yml)
 
-def writeline(path: os.PathLike[str], value: str) -> None:
+def writeline(path: str, value: str) -> None:
     """Appends a string of text to a file
 
     Args:

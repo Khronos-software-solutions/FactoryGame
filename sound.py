@@ -3,7 +3,9 @@ import os
 import pygame as pg
 import yaml
 
+from logger import Logger
 
+console = Logger('./config/general.yml')
 
 class SoundHandler:
     def __init__(self) -> None:
@@ -20,10 +22,10 @@ class SoundHandler:
             try:
                 self.sfx.update({item['name']: pg.mixer.Sound(item['path'])})
             except FileNotFoundError:
-                raise Warning(f'Something went wrong while loading sound "{item['name']}": File at path "{os.path.abspath(item['path'])}" does not exist.')
+                console.warn(f'Something went wrong while loading sound "{item['name']}": File at path "{os.path.abspath(item['path'])}" does not exist.')
     
     def playSound(self, name: str):
         if name in self.sfx:
             self.sfx[name].play()
         else:
-            raise Warning(f'Error: "{name}" may not be a valid sound or may not be loaded.')
+            console.warn(f'Error: "{name}" may not be a valid sound or may not be loaded.')

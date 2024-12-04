@@ -1,8 +1,11 @@
 import os
 import pygame as pg
 
+from vector import iVector2 as vec2
+
 from tile import Tile
-from util import distance
+from util import distance, quadratic_bezier
+
 
 def load_images(path: str) -> list[pg.Surface]:
     """
@@ -47,6 +50,15 @@ class Belt:
 
     def draw(self, surface: pg.Surface):
         pg.draw.line(surface, (0,0,0), self.start_pos, self.end_pos, 20)
+        
+class Cable:
+    def __init__(self, start_pos: tuple[float, float], end_pos: tuple[float, float]):
+        self.start_pos = start_pos
+        self.end_pos = end_pos
+        self.points = quadratic_bezier(start_pos, (end_pos[0] - start_pos[0], start_pos[1] + 50), end_pos)
+    
+    def draw(self, surface: pg.Surface):
+        pg.draw.lines(surface, (0,0,0), False, self.points, 2)
 
 class Machine:
     """Base class for objects that have (an) input(s) and/or output(s)

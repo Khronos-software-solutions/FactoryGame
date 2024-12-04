@@ -162,7 +162,7 @@ ui = UI(player)
 
 objects: dict[str, Miner] = {}
 
-belts: list[machine.Belt] = []
+belts: list[machine.Cable] = []
 
 running = True
 clock = pg.time.Clock()
@@ -277,7 +277,7 @@ while running:
     if len(selectedObjects) == 2:
         objects[selectedObjects[0]].selected = False
         objects[selectedObjects[1]].selected = False
-        belts.append(machine.Belt((objects[selectedObjects[0]].x + (GRID_SIZE // 2), objects[selectedObjects[0]].y + (GRID_SIZE // 2)), (objects[selectedObjects[1]].x + (GRID_SIZE // 2), objects[selectedObjects[1]].y + (GRID_SIZE // 2))))
+        belts.append(machine.Cable((objects[selectedObjects[0]].x + (GRID_SIZE // 2), objects[selectedObjects[0]].y + (GRID_SIZE // 2)), (objects[selectedObjects[1]].x + (GRID_SIZE // 2), objects[selectedObjects[1]].y + (GRID_SIZE // 2))))
         sounds.playSound('belt-connect')
         selectedObjects = []
         

@@ -1,10 +1,11 @@
-import sys, os
+import sys
+import os
 
 from util import loadYML, writeline, getCallerName
 from datetime import datetime
 
 class color:
-    DEBUG = '\033[38;5;7m'
+    DEBUG = '\033[38;5;244m'
     INFO = '\033[38;5;231m'
     WARNING = '\033[38;5;226m'
     ERROR = '\033[38;5;196m'
@@ -16,15 +17,18 @@ class Logger:
         if f not in ['debug', 'info', 'warn', 'error', 'silent']:
             sys.stdout.write(f'{configpath}: loglevel not valid, falling back to "warn"\n')
             self.loglevel = 2
-        else: self.loglevel = ['debug', 'info', 'warn', 'error', 'silent'].index(f)
+        else:
+            self.loglevel = ['debug', 'info', 'warn', 'error', 'silent'].index(f)
         
         # If no logfile path is given, make one unless loglevel is 4 (silent).
-        if logfile == None and not self.loglevel == 4:
-            if not os.path.exists('./log'):
-                os.mkdir('./log')
+        if logfile is None and not self.loglevel == 4:
+            if not os.path.exists(".\\log"):
+                os.mkdir(".\\log")
             self.logfile = f'{os.curdir}/log/{datetime.now().strftime('%d%m%Y_%H%M%S')}.log'
-        elif not logfile == None and not self.loglevel == 4: self.logfile = logfile
-        else: self.logfile = os.devnull # Write to /dev/null if silent
+        elif logfile is not None and not self.loglevel == 4:
+            self.logfile = logfile
+        else: 
+            self.logfile = os.devnull # Write to /dev/null if silent
 
 
     def debug(self, str: str):
