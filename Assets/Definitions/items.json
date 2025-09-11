@@ -1,0 +1,30 @@
+{
+    "items": [
+        {
+            "id": "goethite",
+            "name": "Goethite",
+            "description": "A mineral containing mainly iron and trace amounts of zinc.",
+            "usageDescription": "Can be smelted in a furnace to make iron bars. Yields iron as well as zinc when crushed."
+        },
+        {
+            "id": "magnetite",
+            "name": "Magnetite",
+            "description": "A mineral commonly found magnetically aligned. Contains iron as well as silica.",
+            "usageDescription": "Can be smelted in a furnace for iron bars. Crushing will result in iron and silica dust."
+        },
+        {
+            "id": "pyratite",
+            "name": "Pyratite",
+            "description": "Coloqually known as \"fool's gold\", this mineral bears a slight yellow lustre.",
+            "usageDescription": "Can be smelted in a furnace to make iron bars. Results in iron and sulphur dust when crushed."
+        },
+        {
+            "id": "chalcopyrite",
+            "name": "Chalcopyrite",
+            "description": ""
+        }
+    ],
+    "fluids": [
+
+    ]
+}
