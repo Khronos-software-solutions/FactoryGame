@@ -6,8 +6,9 @@ public class MachineType : ScriptableObject
 {
     public string machineName;
     public GameObject prefab;
-    public Vector2Int size;
+    public Vector2Int footPrint;
     public float powerConsumption = 0f; // Temp
+
 
 }
 
