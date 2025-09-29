@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "MachineType", menuName = "Scriptable Objects/MachineType")]
+[CreateAssetMenu(fileName = "New MachineType", menuName = "Machine Type")]
 public class MachineType : ScriptableObject
 {
     public string machineName;
@@ -9,14 +9,14 @@ public class MachineType : ScriptableObject
     public Vector2Int footPrint;
     public float powerConsumption = 0f; // Temp
 
-
+    
 }
 
 [System.Serializable]
 public class MachineRecipe
 {
-    public Dictionary<Resource, int> inputs;
-    public Dictionary<Resource, int> outputs;
-    public float processingTime;
+    public Dictionary<Resource, int> inputs = new();
+    public Dictionary<Resource, int> outputs = new();
+    public float processingTime = 1f;
     public string nameOverride;
 }

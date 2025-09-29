@@ -1,0 +1,12 @@
+[
+    {
+        "id": "furnace",
+        "name": "Furnace",
+        "footPrint": [2, 2]
+    },
+    {
+        "id": "fabricator",
+        "name": "Fabricator",
+        "footPrint": [2, 2]
+    }
+]

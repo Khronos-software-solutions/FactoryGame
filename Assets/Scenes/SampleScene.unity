@@ -285,11 +285,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: acd0f968a329afe9d839fa448641b0fe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  type: {fileID: 0}
+  type: {fileID: 11400000, guid: 40197ef135af39d40b37f5d6c43e6ad6, type: 2}
   processingCounter: 0
   recipe:
     processingTime: 0
     nameOverride: 
+  processOverride: 0
 --- !u!4 &576049965
 Transform:
   m_ObjectHideFlags: 0

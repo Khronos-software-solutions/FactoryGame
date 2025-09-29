@@ -1,3 +1,5 @@
+#nullable enable
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -6,15 +8,17 @@ public class Machine : MonoBehaviour
 {
     public MachineType type;
     public float processingCounter = 0f;
-    public MachineRecipe recipe;
+    public MachineRecipe? recipe;
+    public Power powerContents;
+    public Dictionary<Resource, int> contents = new();
+    public Dictionary<Resource, int> outputs = new();
 
-    
-
-    public Dictionary<Resource, int> contents;
-    public Dictionary<Resource, int> outputs;
+    public bool processOverride; // Temp
+    private GameObject? instance;
 
     public int InsertResource(Resource resource, int amount) // Add resource to contents while respecting recipe and stackSize
     {
+        if (recipe == null) return 0;
         if (!recipe.inputs.ContainsKey(resource)) return 0; // Check if the resource is needed for the recipe
         if (!contents.ContainsKey(resource)) // Check if the key exists
         {
@@ -39,6 +43,7 @@ public class Machine : MonoBehaviour
 
     public bool CanProcess()
     {
+        if (recipe == null) return false;
         // Check for all recipe inputs if there are enough resources stored
         foreach (KeyValuePair<Resource, int> input in recipe.inputs)
         {
@@ -69,14 +74,16 @@ public class Machine : MonoBehaviour
 
     void Start()
     {
-
+        instance = Instantiate(type.prefab);
     }
 
     void Update()
     {
-        if (CanProcess())
+        Debug.Log(recipe);
+        if ((CanProcess() || processOverride) && recipe != null)
         {
             processingCounter += 1f * Time.deltaTime; // Update processing counter
+            instance.transform.Rotate(new Vector3(0, 0, 1 * Time.deltaTime));
             if (processingCounter >= recipe.processingTime)
             {
                 Process();
@@ -84,4 +91,3 @@ public class Machine : MonoBehaviour
         }
     }
 }
-
