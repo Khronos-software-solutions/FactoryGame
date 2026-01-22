@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 
 public enum ResourceType { Item, Fluid };
-public enum GroupType { Ore, Dust, Raw, Processed }
+public enum GroupType { Dust, Raw, Processed, Product }
 
 public class Resource : MonoBehaviour
 {
@@ -32,10 +32,5 @@ public class ResourceFileFluid
     public string usageDescription;
     public bool processTemperature;
     public string type;
-
-}
-
-public class ResourceLoader
-{
 
 }

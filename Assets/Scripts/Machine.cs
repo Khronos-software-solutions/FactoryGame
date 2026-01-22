@@ -1,6 +1,6 @@
 #nullable enable
-using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 [System.Serializable]
@@ -12,31 +12,35 @@ public class Machine : MonoBehaviour
     public Power powerContents;
     public Dictionary<Resource, int> contents = new();
     public Dictionary<Resource, int> outputs = new();
-
     public bool processOverride; // Temp
-    private GameObject? instance;
+    public GameObject instance;
 
-    public int InsertResource(Resource resource, int amount) // Add resource to contents while respecting recipe and stackSize
+    public int
+        InsertResource(Resource resource, int amount) // Add resource to contents while respecting recipe and stackSize
     {
         if (recipe == null) return 0;
         if (!recipe.inputs.ContainsKey(resource)) return 0; // Check if the resource is needed for the recipe
-        if (!contents.ContainsKey(resource)) // Check if the key exists
+        if (!contents.TryGetValue(resource, out var content)) // Check if the key exists
         {
             if (amount >= resource.stackSize)
             {
                 contents.Add(resource, resource.stackSize);
                 return resource.stackSize;
             }
+
             contents.Add(resource, amount);
             return amount;
         }
-        if (contents[resource] >= resource.stackSize) return 0; // Check if contents are full
-        if (contents[resource] + amount > resource.stackSize) // Handle case where inserting the normal amount results in overflowing
+
+        if (content >= resource.stackSize) return 0; // Check if contents are full
+        if (contents[resource] + amount >
+            resource.stackSize) // Handle case where inserting the normal amount results in overflowing
         {
             var addedAmount = resource.stackSize - contents[resource];
             contents[resource] = resource.stackSize;
             return addedAmount;
         }
+
         contents[resource] += amount;
         return amount;
     }
@@ -47,47 +51,27 @@ public class Machine : MonoBehaviour
         // Check for all recipe inputs if there are enough resources stored
         foreach (KeyValuePair<Resource, int> input in recipe.inputs)
         {
-            if (!contents.ContainsKey(input.Key)) return false; // Check if key exists
-            if (contents[input.Key] < recipe.inputs[input.Key]) return false; // Check if there are enough for the recipe
+            if (!contents.TryGetValue(input.Key, out var content)) return false; // Check if key exists
+            if (content < recipe.inputs[input.Key]) return false; // Check if there are enough for the recipe
         }
-        foreach (KeyValuePair<Resource, int> output in recipe.outputs) // Check if finishing processing will result in overflow
-        {
-            if (outputs.ContainsKey(output.Key))
-            {
-                if (outputs[output.Key] + output.Value > output.Key.stackSize)
-                {
-                    return false;
-                }
-            }
-        }
-        return true;
+
+        return recipe.outputs.Where(output => outputs.ContainsKey(output.Key))
+            .All(output => outputs[output.Key] + output.Value <= output.Key.stackSize);
     }
 
     public void Process()
     {
         foreach (KeyValuePair<Resource, int> output in recipe.outputs)
         {
-            if (!outputs.ContainsKey(output.Key)) outputs.Add(output.Key, 0); // Add key value pair if it does not exist
+            outputs.TryAdd(output.Key, 0); // Add key value pair if it does not exist
             outputs[output.Key] += output.Value; // Add outputs
         }
     }
 
-    void Start()
+    private void Update()
     {
-        instance = Instantiate(type.prefab);
-    }
-
-    void Update()
-    {
-        Debug.Log(recipe);
-        if ((CanProcess() || processOverride) && recipe != null)
-        {
-            processingCounter += 1f * Time.deltaTime; // Update processing counter
-            instance.transform.Rotate(new Vector3(0, 0, 1 * Time.deltaTime));
-            if (processingCounter >= recipe.processingTime)
-            {
-                Process();
-            }
-        }
+        if ((!CanProcess() && !processOverride) || recipe == null) return;
+        processingCounter += 1f * Time.deltaTime; // Update processing counter
+        if (processingCounter >= recipe.processingTime) Process();
     }
 }

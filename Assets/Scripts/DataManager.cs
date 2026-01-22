@@ -1,32 +1,33 @@
-using UnityEngine;
-using System.IO;
 using System.Collections.Generic;
-using System;
+using UnityEngine;
 
-public class DataManager : MonoBehaviour
+public class ItemWrapper<T>
 {
-    public static DataManager Instance { get; private set; }
+    
+}
 
-    public List<Resource> Resources { get; private set; }
-    public List<MachineRecipe> Recipes { get; private set; }
-    private void Awake()
+public class ResourceLoader : MonoBehaviour
+{
+    public List<ResourceFileItem> items = new();
+    public List<ResourceFileFluid> fluids = new();
+
+    void Start()
     {
-        if (Instance == null)
-        {
-            Instance = this;
-        }
+        LoadResources();
     }
 
-    private T LoadJson<T>(string fileName) where T : new()
+    private void LoadResources()
     {
+        var jsonFile = Resources.Load<TextAsset>("Definitions/items");
 
-        string filePath = Path.Combine(Application.streamingAssetsPath, $"{fileName}.json");
-        if (!File.Exists(filePath))
+        if (jsonFile != null)
         {
-            Debug.LogError($"Could not find {fileName}.json at {filePath}");
-            return (T)Activator.CreateInstance(typeof(T));
+            items = JsonUtility.FromJson<List<ResourceFileItem>>(jsonFile.text).items;
+            fluids = JsonUtility.FromJson<List<ResourceFileFluid>>(jsonFile.text).fluid;
         }
-        string json = File.ReadAllText(filePath);
-        return JsonUtility.FromJson<T>(json);
+        else
+        {
+            Debug.LogError("Failed to load items.json");
+        }
     }
 }
