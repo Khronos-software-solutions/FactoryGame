@@ -1,0 +1,52 @@
+{
+  "fluids": [
+    {
+      "id": "water",
+      "name": "Water",
+      "description": "It's water",
+      "usageDescription": "Can be used to make steam in boilers, or to cool buildings for overclocking in conjunction with a heat exchange system.",
+      "type": "raw",
+      "processTemperature": true
+    },
+    {
+      "id": "crude_oil",
+      "name": "Crude Oil",
+      "description": "A goopy black liquid, dug up from underground.",
+      "usageDescription": "Can be processed in a refinery or distillation column.",
+      "type": "raw",
+      "processTemperature": false
+    },
+    {
+      "id": "distilled_water",
+      "name": "Distilled Water",
+      "description": "An alternative to water, has a higher heat capacity.",
+      "usageDescription": "Can be used in cooling systems or advanced processing.",
+      "type": "processed",
+      "processTemperature": true
+    },
+    {
+      "id": "coolant",
+      "name": "Coolant",
+      "description": "A fluid with a very high heat capacity.",
+      "usageDescription": "Can be used in cooling systems.",
+      "type": "processed",
+      "processTemperature": true
+    },
+    {
+      "id": "petrol",
+      "name": "Petrol",
+      "description": "The simpelest result from processing oil.",
+      "usageDescription": "Can be used to power steam boilers.",
+      "type": "processed",
+      "processTemperature": false
+    },
+    {
+      "id": "diesel",
+      "name": "Diesel",
+      "description": "A translucent yellow fuel with high energy content. The heavier counterpart to petrol.",
+      "usageDescription": "Can be used to power steam boilers.",
+      "type": "processed",
+      "processTemperature": false
+    }
+  ]
+}

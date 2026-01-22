@@ -8,7 +8,7 @@ public class Machine : MonoBehaviour
 {
     public MachineType type;
     public float processingCounter = 0f;
-    public MachineRecipe? recipe;
+    public Recipe? recipe;
     public Power powerContents;
     public Dictionary<Resource, int> contents = new();
     public Dictionary<Resource, int> outputs = new();
@@ -74,4 +74,11 @@ public class Machine : MonoBehaviour
         processingCounter += 1f * Time.deltaTime; // Update processing counter
         if (processingCounter >= recipe.processingTime) Process();
     }
+
+    private void SetRecipe(Recipe newRecipe)
+    {
+        if(newRecipe.machineType == type) recipe = newRecipe;
+        else Debug.LogWarning("Invalid recipe for this machine, this should not happen");
+    }
+    
 }
