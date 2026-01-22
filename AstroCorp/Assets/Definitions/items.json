@@ -1,0 +1,153 @@
+{
+    "items": [
+        {
+            "id": "goethite",
+            "name": "Goethite",
+            "description": "A mineral containing mainly iron and trace amounts of zinc.",
+            "usageDescription": "Can be smelted in a furnace to make iron bars. Yields iron as well as zinc when crushed.",
+            "stackSize": 100,
+            "type": "item/ore"
+        },
+        {
+            "id": "magnetite",
+            "name": "Magnetite",
+            "description": "A mineral commonly found magnetically aligned. Contains iron as well as silica.",
+            "usageDescription": "Can be smelted in a furnace for iron bars. Crushing will result in iron and silica dust.",
+            "stackSize": 100,
+            "type": "item/ore"
+        },
+        {
+            "id": "pyratite",
+            "name": "Pyratite",
+            "description": "Coloqually known as \"fool's gold\", this mineral bears a slight yellow lustre.",
+            "usageDescription": "Can be smelted in a furnace to make iron bars. Results in iron and sulphur dust when crushed.",
+            "stackSize": 100,
+            "type": "item/ore"
+        },
+        {
+            "id": "chalcopyrite",
+            "name": "Chalcopyrite",
+            "description": "A mixture of iron and copper.",
+            "usageDescription": "Can be smelted in a furnace to make copper bars. When crushed will result in copper and iron dust.",
+            "stackSize": 100,
+            "type": "item/ore"
+        },
+        {
+            "id": "malachite",
+            "name": "Malachite",
+            "description": "A mineral containing mostly copper. The most common form in which copper is found.",
+            "usageDescription": "Can be smelted into copper using a furnace. Crushing results in malachite dust which can be processed further into copper and water.",
+            "stackSize": 100,
+            "type": "item/ore"
+        },
+        {
+            "id": "cuprite",
+            "name": "Cuprite",
+            "description": "One of the purest forms of copper, aligned as an amorphous crystal.",
+            "usageDescription": "Cannot be smelted using a regular furnace. Processing is only possible by crushing or by blast furnace. Due to it being a crystal, it can directly be sold.",
+            "stackSize": 100,
+            "type": "item/ore"
+        },
+        {
+            "id": "coal",
+            "name": "Coal",
+            "description": "A black, slightly glossy sedimentary rock that contains a lot of energy.",
+            "usageDescription": "Can be used to power a boiler or to produce steel in a blast furnace.",
+            "stackSize": 100,
+            "type": "item/ore"
+        },
+        {
+            "id": "ruby",
+            "name": "Ruby",
+            "description": "A red crystal containing mostly aluminium and chrome.",
+            "usageDescription": "Can be crushed, which yields aluminium and chromium dust.",
+            "stackSize": 100,
+            "type": "item/ore"
+        },
+        {
+            "id": "bauxite",
+            "name": "Bauxite",
+            "description": "An orange sedimentary rock, used to make aluminium.",
+            "usageDescription": "Can be processed to make aluminium.",
+            "stackSize": 100,
+            "type": "item/ore"
+        },
+
+
+        {
+            "id": "iron_dust",
+            "name": "Iron Dust",
+            "description": "A brown-orange, ferromagnetic dust.",
+            "usageDescription": "Can be processed in a blast furnace to make iron bars.",
+            "stackSize": 50,
+            "type": "item/dust"
+        },
+        {
+            "id": "copper_dust",
+            "name": "Copper dust",
+            "description": "A slightly green, slightly teal dust.",
+            "usageDescription": "Can be processed in a blast furnace to make copper bars.",
+            "stackSize": 50,
+            "type": "item/dust"
+        },
+        {
+            "id": "zinc_dust",
+            "name": "Zinc dust",
+            "description": "A silvery dust.",
+            "usageDescription": "Can be processed in a blast furnace to make zinc bars.",
+            "stackSize": 50,
+            "type": "item/dust"
+
+        }
+    ],
+    "fluids": [
+        {
+            "id": "water",
+            "name": "Water",
+            "description": "It's water",
+            "usageDescription": "Can be used to make steam in boilers, or to cool buildings for overclocking in conjucntion with a heat exchange system.",
+            "type": "fluid/raw",
+            "processTemperature": true
+        },
+        {
+            "id": "crude_oil",
+            "name": "Crude Oil",
+            "description": "A goopy black liquid, dug up from underground.",
+            "usageDescription": "Can be processed in a refinery or destillation column.",
+            "type": "fluid/raw",
+            "processTemperature": false
+        },
+        {
+            "id": "distilled_water",
+            "name": "Distilled Water",
+            "description": "An alternative to water, has a higher heat capacity.",
+            "usageDescription": "Can be used in cooling systems or advanced processing.",
+            "type": "fluid/processed",
+            "processTemperature": true
+        },
+        {
+            "id": "coolant",
+            "name": "Coolant",
+            "description": "A fluid with a very high heat capacity.",
+            "usageDescription": "Can be used in cooling systems.",
+            "type": "fluid/processed",
+            "processTemperature": true
+        },
+        {
+            "id": "petrol",
+            "name": "Petrol",
+            "description": "The simpelest result from processing oil.",
+            "usageDescription": "Can be used to power steam boilers.",
+            "type": "fluid/processed",
+            "processTemperature": false
+        },
+        {
+            "id": "diesel",
+            "name": "Diesel",
+            "description": "A clear yellow fuel with high energy content. The heavier counterpart to petrol.",
+            "usageDescription": "Can be used to power steam boilers.",
+            "type": "fluid/processed",
+            "processTemperature": false
+        }
+    ]
+}
