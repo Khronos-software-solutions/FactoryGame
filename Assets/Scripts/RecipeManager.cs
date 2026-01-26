@@ -1,48 +1,105 @@
 using System.Collections.Generic;
 using System.Linq;
-using UnityEditor;
 using UnityEngine;
+using System.Text.RegularExpressions;
 
-public abstract class RecipeFileLayout
+public static class JsonHelper
 {
-      public inputs
+    public static string JsonUpperCamelCase(TextAsset json)
+    {
+        // Convert all JSON keys to upper camel case because I hate having to use non-abstract classes
+        return Regex.Replace(json.text, @"""([a-z][a-z0-9]*)"":", m => "\"" + char.ToUpper(m.Groups[1].Value[0]) + m.Groups[1].Value[1..] + "\":");
+    }
+}
+
+public abstract class ItemQuantityText
+{
+    // Describes a resource and an amount in id text form
+    public abstract int Amount { get; }
+    public abstract string ID { get; }
+}
+
+public abstract class SingleRecipeText
+{
+    protected SingleRecipeText(List<ItemQuantityText> outputs)
+    {
+        this.Outputs = outputs;
+    }
+
+    // Describes a recipe's inputs outputs and processing time in text form
+    public abstract List<ItemQuantityText> Inputs { get; }
+    public List<ItemQuantityText> Outputs { get; }
+    public abstract float ProcessingTime { get; }
 }
 
 public abstract class RecipeFile
 {
-      public Dictionary<string, List<Recipe>> recipes;
+    public Dictionary<string, List<SingleRecipeText>> recipes;
 }
 
 public class RecipeLoader
 {
-      private RecipeFileLayout _serializedRecipes;
-      private List<MachineType> _types;
-      
+    private RecipeFile _serializedRecipes;
+    private List<MachineType> _types;
 
-      public List<Recipe> LoadRecipes()
-      {
-            var types = Resources.LoadAll<MachineType>("Machines").ToList();
-            var recipeFile = Resources.Load<TextAsset>("Definitions/recipes");
-            if (recipeFile != null) _serializedRecipes = JsonUtility.FromJson<RecipeFileLayout>(recipeFile.text);
-            else Debug.LogError("Failed to load recipes");
+    public List<Recipe> LoadRecipes(ResourceManager itemDB)
+    {
+        var types = Resources.LoadAll<MachineType>("Machines").ToList();
+        var recipeFile = JsonHelper.JsonUpperCamelCase(Resources.Load<TextAsset>("Definitions/recipes"));
+        if (recipeFile != null)
+        {
+            _serializedRecipes = JsonUtility.FromJson<RecipeFile>(recipeFile);
+        }
+        else
+        {
+            Debug.LogError("Failed to load recipes. Cause: file not found");
+            return new List<Recipe>();
+        }
 
-            List<Recipe> recipes = new List<Recipe>();
-            foreach (var item in _serializedRecipes.recipes)
+        var recipes = new List<Recipe>();
+        foreach (var item in _serializedRecipes.recipes)
+        {
+            var type = types.Find(i => i.id == item.Key);
+            if (type.id == null)
             {
-                  var type = types.Find(i => i.id == item.Key);
-                  foreach (Recipe recipe in item.Value)
-                  {
-                        var r = recipe;
-                        r.machineType = type;
-                        recipes.Add(r);
-                  }
+                Debug.LogWarning($"Machine type \"{item.Key}\" not found. Skipping...");
+                continue;
             }
 
-            return recipes;
-      }
+            foreach (var recipe in item.Value)
+            {
+                var outputs =
+                    recipe.Outputs.ToDictionary(output => itemDB.ByID(output.ID), output => output.Amount);
+
+                var inputs =
+                    recipe.Inputs.ToDictionary(input => itemDB.ByID(input.ID), input => input.Amount);
+
+
+                var r = new Recipe
+                {
+                    machineType = type,
+                    inputs = inputs,
+                    processingTime = recipe.ProcessingTime
+                };
+                recipes.Add(r);
+            }
+
+            Debug.Log($"Loaded all recipes of type {item.Key}");
+        }
+
+        Debug.Log($"Done loading ({recipes.Count}) recipes");
+        return recipes;
+    }
 }
 
 public class RecipeManager : MonoBehaviour
 {
-      public List<Recipe> 
+    public ResourceManager resourceManager;
+    public List<Recipe> recipes;
+
+    private void Start()
+    {
+        var r = new RecipeLoader();
+        recipes = r.LoadRecipes(resourceManager);
+    }
 }
