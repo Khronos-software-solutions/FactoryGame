@@ -18,7 +18,7 @@ public class ResourceLoader
     
     public readonly List<Resource> resources = new();
 
-    public void LoadResources()
+    public List<Resource> LoadResources()
     {
         var itemFile = Resources.Load<TextAsset>("Definitions/items");
         var fluidFile = Resources.Load<TextAsset>("Definitions/fluids");
@@ -36,6 +36,8 @@ public class ResourceLoader
         {
             resources.Add(item.ToResource());
         }
+
+        return resources;
     }
 }
 
@@ -46,8 +48,7 @@ public class ResourceManager : MonoBehaviour
     void Start()
     {
         var rl = new ResourceLoader();
-        rl.LoadResources();
-        resources = rl.resources;
+        resources = rl.LoadResources();
     }
 
     public Resource ByID(string id) // Get a resource from all by searching by it for its ID
