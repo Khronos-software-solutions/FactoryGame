@@ -21,20 +21,15 @@ public abstract class ItemQuantityText
 
 public abstract class SingleRecipeText
 {
-    protected SingleRecipeText(List<ItemQuantityText> outputs)
-    {
-        this.Outputs = outputs;
-    }
-
     // Describes a recipe's inputs outputs and processing time in text form
     public abstract List<ItemQuantityText> Inputs { get; }
-    public List<ItemQuantityText> Outputs { get; }
+    public abstract List<ItemQuantityText> Outputs { get; }
     public abstract float ProcessingTime { get; }
 }
 
 public abstract class RecipeFile
 {
-    public Dictionary<string, List<SingleRecipeText>> recipes;
+    public abstract Dictionary<string, List<SingleRecipeText>> Recipes { get; }
 }
 
 public class RecipeLoader
@@ -57,7 +52,7 @@ public class RecipeLoader
         }
 
         var recipes = new List<Recipe>();
-        foreach (var item in _serializedRecipes.recipes)
+        foreach (var item in _serializedRecipes.Recipes)
         {
             var type = types.Find(i => i.id == item.Key);
             if (type.id == null)
@@ -95,11 +90,29 @@ public class RecipeLoader
 public class RecipeManager : MonoBehaviour
 {
     public ResourceManager resourceManager;
-    public List<Recipe> recipes;
+    private List<Recipe> _recipes;
 
     private void Start()
     {
         var r = new RecipeLoader();
-        recipes = r.LoadRecipes(resourceManager);
+        _recipes = r.LoadRecipes(resourceManager);
+    }
+
+    public List<Recipe> ByMachineID(string machineID)
+    {
+        var machineType = Resources.LoadAll<MachineType>("Machines").ToList().Find(i => i.id == machineID); 
+        return _recipes.FindAll(recipe => recipe.machineType == machineType);
+    }
+
+    public List<Recipe> ByInputID(string resourceID)
+    {
+        var resource = resourceManager.ByID(resourceID);
+        return _recipes.FindAll(r => r.inputs.ContainsKey(resource));
+    }
+
+    public List<Recipe> ByOutputID(string resourceID)
+    {
+        var resource = resourceManager.ByID(resourceID);
+        return _recipes.FindAll(r => r.outputs.ContainsKey(resource));
     }
 }

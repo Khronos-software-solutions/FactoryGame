@@ -1,11 +1,19 @@
 using UnityEngine;
 using System.Collections.Generic;
+using Unity.VisualScripting;
+using UnityEngine.Tilemaps;
 
 [System.Serializable]
 public class GridChunk : MonoBehaviour
 {
     public Vector2Int size;
+    public Vector2Int relativePosition;
+    public Tilemap tilemap;
     public Dictionary<Vector2Int, Machine> machines = new();
+    
+    private int _seed;
+    private System.Random _random;
+    private float noiseScale;
 
     private void Start()
     {
@@ -17,6 +25,28 @@ public class GridChunk : MonoBehaviour
         gameObject.GetComponent<MeshFilter>().mesh = temp.GetComponent<MeshFilter>().mesh;
         Destroy(temp);
     }
+
+    // public void GenerateTilemap()
+    // {
+    //     _random = new System.Random(_seed);
+    //     tilemap.ClearAllTiles();
+    //
+    //     for (var x = 0; x < size.x; x++)
+    //     {
+    //         for (var y = 0; y < size.y; y++)
+    //         {
+    //             // Calculate noise value
+    //             float noiseX = (x + relativePosition.x) * noiseScale;
+    //             float noiseY = (y + relativePosition.y) * noiseScale;
+    //             var noiseValue = Mathf.PerlinNoise(noiseX, noiseY);
+    //
+    //             // Place tile if noise value exceeds threshold
+    //             if (noiseValue <= threshold) continue;
+    //             Vector3Int cellPosition = new Vector3Int(x, y, 0);
+    //             tilemap.SetTile(cellPosition, baseTile);
+    //         }
+    //     }
+    // }
 
     public void Generate()
     {
