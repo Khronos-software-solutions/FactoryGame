@@ -1,9 +1,15 @@
+#nullable enable
 using UnityEngine;
 
 public enum EnergyType { Steam, Electricity };
 
-public class Power
+public abstract class Power
 {
-    public EnergyType type;
+    public abstract EnergyType type { get; }
     public float amount;
+}
+
+public class SteamPower : Power
+{
+    public override EnergyType type => EnergyType.Steam;
 }

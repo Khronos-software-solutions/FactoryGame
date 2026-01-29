@@ -1,0 +1,128 @@
+{
+    "furnace": [
+        {
+            "inputs": [
+                {
+                    "id": "goethite",
+                    "amount": 3
+                }
+            ],
+            "outputs": [
+                {
+                    "id": "iron_bar",
+                    "amount": 1
+                }
+            ],
+            "processingTime": 3.0,
+            "nameOverride": "Iron bar (Goethite)"
+        },
+        {
+            "inputs": [
+                {
+                    "id": "magnetite",
+                    "amount": 4
+                }
+            ],
+            "outputs": [
+                {
+                    "id": "iron_bar",
+                    "amount": 2
+                }
+            ],
+            "processingTime": 3.0,
+            "nameOverride": "Iron bar (Magnetite)"
+        },
+        {
+            "inputs": [
+                {
+                    "id": "pyratite",
+                    "amount": 5
+                }
+            ],
+            "outputs": [
+                {
+                    "id": "iron_bar",
+                    "amount": 2
+                }
+            ],
+            "processingTime": 3.0
+        },
+        {
+            "inputs": [
+                {
+                    "id": "chalcopyrite",
+                    "amount": 5
+                }
+            ],
+            "outputs": [
+                {
+                    "id": "copper_bar",
+                    "amount": 3
+                }
+            ],
+            "processingTime": 3.0
+        },
+        {
+            "inputs": [
+                {
+                    "id": "malachite",
+                    "amount": 4
+                }
+            ],
+            "outputs": [
+                {
+                    "id": "copper_bar",
+                    "amount": 3
+                }
+            ],
+            "processingTime": 3.0
+        }
+    ],
+    "fabricator": [
+        {
+            "inputs": [
+                {
+                    "id": "iron_bar",
+                    "amount": 2
+                }
+            ],
+            "outputs": [
+                {
+                    "id": "iron_plate",
+                    "amount": 1
+                }
+            ],
+            "processingTime": 3.0
+        },
+        {
+            "inputs": [
+                {
+                    "id": "copper_bar",
+                    "amount": 2
+                }
+            ],
+            "outputs": [
+                {
+                    "id": "copper_wire",
+                    "amount": 5
+                }
+            ],
+            "processingTime": 2.5
+        },
+        {
+            "inputs": [
+                {
+                    "id": "iron_bar",
+                    "amount": 3
+                }
+            ],
+            "outputs": [
+                {
+                    "id": "iron_rod",
+                    "amount": 5
+                }
+            ],
+            "processingTime": 1.5
+        }
+    ]
+}

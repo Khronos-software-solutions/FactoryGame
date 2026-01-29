@@ -1,0 +1,93 @@
+{
+    "items": [
+        {
+            "id": "goethite",
+            "name": "Goethite",
+            "description": "A mineral containing mainly iron and trace amounts of zinc.",
+            "usageDescription": "Can be smelted in a furnace to make iron bars. Yields iron as well as zinc when crushed.",
+            "stackSize": 100,
+            "type": "ore"
+        },
+        {
+            "id": "magnetite",
+            "name": "Magnetite",
+            "description": "A mineral commonly found magnetically aligned. Contains iron as well as silica.",
+            "usageDescription": "Can be smelted in a furnace for iron bars. Crushing will result in iron and silica dust.",
+            "stackSize": 100,
+            "type": "raw"
+        },
+        {
+            "id": "pyratite",
+            "name": "Pyratite",
+            "description": "Coloqually known as \"fool's gold\", this mineral bears a slight yellow lustre.",
+            "usageDescription": "Can be smelted in a furnace to make iron bars. Results in iron and sulphur dust when crushed.",
+            "stackSize": 100,
+            "type": "raw"
+        },
+        {
+            "id": "chalcopyrite",
+            "name": "Chalcopyrite",
+            "description": "A mixture of iron and copper.",
+            "usageDescription": "Can be smelted in a furnace to make copper bars. When crushed will result in copper and iron dust.",
+            "stackSize": 100,
+            "type": "raw"
+        },
+        {
+            "id": "malachite",
+            "name": "Malachite",
+            "description": "A mineral containing mostly copper. The most common form in which copper is found.",
+            "usageDescription": "Can be smelted into copper using a furnace. Crushing results in malachite dust which can be processed further into copper and water.",
+            "stackSize": 100,
+            "type": "raw"
+        },
+        {
+            "id": "cuprite",
+            "name": "Cuprite",
+            "description": "One of the purest forms of copper, aligned as an amorphous crystal.",
+            "usageDescription": "Cannot be smelted using a regular furnace. Processing is only possible by crushing or by blast furnace. Due to it being a crystal, it can directly be sold.",
+            "stackSize": 100,
+            "type": "raw"
+        },
+        {
+            "id": "coal",
+            "name": "Coal",
+            "description": "A black, slightly glossy sedimentary rock that contains a lot of energy.",
+            "usageDescription": "Can be used to power a boiler or to produce steel in a blast furnace.",
+            "stackSize": 100,
+            "type": "raw"
+        },
+        {
+            "id": "ruby",
+            "name": "Ruby",
+            "description": "A red crystal containing mostly aluminium and chrome.",
+            "usageDescription": "Can be crushed, which yields aluminium and chromium dust.",
+            "stackSize": 100,
+            "type": "raw"
+        },
+        {
+            "id": "iron_dust",
+            "name": "Iron Dust",
+            "description": "A brown-orange, ferromagnetic dust.",
+            "usageDescription": "Can be processed in a blast furnace to make iron bars.",
+            "stackSize": 50,
+            "type": "dust"
+        },
+        {
+            "id": "copper_dust",
+            "name": "Copper dust",
+            "description": "A slightly green, slightly teal dust.",
+            "usageDescription": "Can be processed in a blast furnace to make copper bars.",
+            "stackSize": 50,
+            "type": "dust"
+        },
+        {
+            "id": "zinc_dust",
+            "name": "Zinc dust",
+            "description": "A silvery dust.",
+            "usageDescription": "Can be processed in a blast furnace to make zinc bars.",
+            "stackSize": 50,
+            "type": "dust"
+
+        }
+    ]
+}
