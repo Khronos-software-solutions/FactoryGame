@@ -3,15 +3,19 @@ using UnityEngine;
 [RequireComponent(typeof(Collider2D))]
 public class PlayerMovement : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+     private float moveForce = 5f; // Kracht per seconde
+     private Rigidbody2D rb;
+    
+ void Start()
+     {
+         rb = GetComponent<Rigidbody2D>();
+     }
+ void FixedUpdate()
+ {
+     float moveX = Input.GetAxis("Horizontal");
+     float moveY = Input.GetAxis("Vertical");
+     Vector2 force = new Vector2(moveX, moveY);
+     force *= moveForce * Time.deltaTime;
+     rb.AddForce(force, ForceMode2D.Impulse);
+ }
 }
