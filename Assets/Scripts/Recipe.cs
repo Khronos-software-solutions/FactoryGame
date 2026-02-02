@@ -10,6 +10,6 @@ public class Recipe
     public Dictionary<Resource, int> outputs = new();
     public float processingTime = 1f; // Time to process the recipe in seconds
     [CanBeNull] public string nameOverride; // A name override for the recipe.
-                                // By default, the recipe name is the resulting resource, but this overrides this,
-                                // for example if the recipe has multiple outputs or the product has multiple recipes.
+                                // By default, the recipe name is the same as the resulting resource, but this overrides it,
+                                // for example when the recipe has multiple outputs or the product has multiple recipes.
 }

@@ -15,8 +15,7 @@ public class Machine : MonoBehaviour
     public bool processOverride; // Temp
     public GameObject instance;
 
-    public int
-        InsertResource(Resource resource, int amount) // Add resource to contents while respecting recipe and stackSize
+    public int InsertResource(Resource resource, int amount) // Add resource to contents while respecting recipe and stackSize
     {
         if (recipe == null) return 0;
         if (!recipe.inputs.ContainsKey(resource)) return 0; // Check if the resource is needed for the recipe
@@ -55,12 +54,18 @@ public class Machine : MonoBehaviour
             if (content < recipe.inputs[input.Key]) return false; // Check if there are enough for the recipe
         }
 
+        // Check if finishing processing would make the output overflow
         return recipe.outputs.Where(output => outputs.ContainsKey(output.Key))
             .All(output => outputs[output.Key] + output.Value <= output.Key.stackSize);
     }
 
     public void Process()
     {
+        if (recipe == null)
+        {
+            Debug.LogWarning("No recipe selected while trying to process, this should not happen");
+            return;
+        } 
         foreach (KeyValuePair<Resource, int> output in recipe.outputs)
         {
             outputs.TryAdd(output.Key, 0); // Add key value pair if it does not exist

@@ -1,13 +1,20 @@
 #nullable enable
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.Tilemaps;
 
 [System.Serializable]
 public class Grid : MonoBehaviour
 {
     public Vector2Int chunkSize = new(16, 16);
     public Dictionary<Vector2Int, GridChunk> chunks = new();
+    public Tilemap tilemap;
+    
+    [Header("Generation settings")]
+    public int seed;
+
+    public float noiseScale = 0.1f;
+    public Tile[] tiles;
 
     // Get chunk coordinate from global
     public Vector2Int GlobalToChunkCoord(Vector2Int globalPos)

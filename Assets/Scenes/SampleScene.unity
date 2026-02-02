@@ -347,9 +347,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: {fileID: 11400000, guid: 40197ef135af39d40b37f5d6c43e6ad6, type: 2}
   processingCounter: 0
-  recipe:
-    processingTime: 0
-    nameOverride: 
   processOverride: 0
   instance: {fileID: 0}
 --- !u!4 &576049965
