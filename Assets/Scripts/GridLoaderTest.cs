@@ -4,12 +4,7 @@ using UnityEngine;
 [System.Serializable]
 [RequireComponent(typeof(GridLoader))]
 public class GridLoaderTest : MonoBehaviour
-{
-    private void Start()
-    {
-        GetComponent<GridLoader>().renderedPositions.Add(new Vector2Int(0, 0));
-    }
-
+{ 
     private void Update()
     {
         if (!Input.GetMouseButtonDown(0)) return;
