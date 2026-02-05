@@ -1,10 +1,16 @@
 fileFormatVersion: 2
-guid: dc7e6797d0134e8909c956ff8e351ca9
+guid: 657a37c56e83d0f4992e59674563cd73
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 6710968875337978977
-    second: Background Sand_0
+      213: 4113426884404250083
+    second: Nickel ore icon_0
+  - first:
+      213: 6159657879511698497
+    second: Nickel ore icon_1
+  - first:
+      213: 4095712111345412317
+    second: Nickel ore icon_2
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -46,12 +52,12 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 64
+  spritePixelsToUnits: 100
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -100,13 +106,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Background Sand_0
+      name: Nickel ore icon_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 64
-        height: 64
+        x: 138
+        y: 48
+        width: 751
+        height: 777
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -115,8 +121,52 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 1641939c2a6222d50800000000000000
-      internalID: 6710968875337978977
+      spriteID: 3e5057e15f3d51930800000000000000
+      internalID: 4113426884404250083
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nickel ore icon_1
+      rect:
+        serializedVersion: 2
+        x: 441
+        y: 367
+        width: 7
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 14c0b36c4308b7550800000000000000
+      internalID: 6159657879511698497
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nickel ore icon_2
+      rect:
+        serializedVersion: 2
+        x: 687
+        y: 369
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dd8220b1774e6d830800000000000000
+      internalID: 4095712111345412317
       vertices: []
       indices: 
       edges: []
@@ -125,7 +175,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 5e97eb03825dee720800000000000000
+    spriteID: 
     internalID: 0
     vertices: []
     indices: 
@@ -135,7 +185,9 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Background Sand_0: 6710968875337978977
+      Nickel ore icon_0: 4113426884404250083
+      Nickel ore icon_1: 6159657879511698497
+      Nickel ore icon_2: 4095712111345412317
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

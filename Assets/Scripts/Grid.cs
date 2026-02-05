@@ -8,13 +8,14 @@ public class Grid : MonoBehaviour
 {
     public Vector2Int chunkSize = new(16, 16);
     public Dictionary<Vector2Int, GridChunk> chunks = new();
-    public Tilemap tilemap;
     
     [Header("Generation settings")]
     public int seed;
-
-    public float noiseScale = 0.1f;
-    public Tile[] tiles;
+    public float noiseScale;
+    public FastNoiseLite.FractalType fractalType;
+    public int octaves = 3;
+    
+    
 
     // Get chunk coordinate from global
     public Vector2Int GlobalToChunkCoord(Vector2Int globalPos)
@@ -41,8 +42,11 @@ public class Grid : MonoBehaviour
         var chunkObj = new GameObject($"Chunk_{chunkCoord.x}_{chunkCoord.y}");
         var chunk = chunkObj.AddComponent<GridChunk>();
         chunk.size = chunkSize;
+        chunk.seed = seed;
+        chunk.noiseScale = noiseScale;
+        chunk.relativePosition = chunkCoord;
+        chunk.Initialize();
         chunkObj.transform.parent = transform;
-        chunk.Generate();
         chunks.Add(chunkCoord, chunk);
         return chunks[chunkCoord];
     }

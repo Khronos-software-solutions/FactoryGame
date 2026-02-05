@@ -1,10 +1,13 @@
 fileFormatVersion: 2
-guid: dc7e6797d0134e8909c956ff8e351ca9
+guid: cdc13b4d78e830746bdccbe296eb9205
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 6710968875337978977
-    second: Background Sand_0
+      213: 4867113996239144127
+    second: Gravel icon_0
+  - first:
+      213: -4206345637273058242
+    second: Gravel icon_1
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -46,12 +49,12 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 64
+  spritePixelsToUnits: 100
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -100,13 +103,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Background Sand_0
+      name: Gravel icon_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 64
-        height: 64
+        x: 76
+        y: 422
+        width: 77
+        height: 56
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -115,8 +118,30 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 1641939c2a6222d50800000000000000
-      internalID: 6710968875337978977
+      spriteID: fb48a2b74667b8340800000000000000
+      internalID: 4867113996239144127
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Gravel icon_1
+      rect:
+        serializedVersion: 2
+        x: 131
+        y: 88
+        width: 822
+        height: 672
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e3443d7ddee00a5c0800000000000000
+      internalID: -4206345637273058242
       vertices: []
       indices: 
       edges: []
@@ -125,7 +150,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 5e97eb03825dee720800000000000000
+    spriteID: 
     internalID: 0
     vertices: []
     indices: 
@@ -135,7 +160,8 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Background Sand_0: 6710968875337978977
+      Gravel icon_0: 4867113996239144127
+      Gravel icon_1: -4206345637273058242
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

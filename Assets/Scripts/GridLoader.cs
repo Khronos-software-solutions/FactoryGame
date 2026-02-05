@@ -7,18 +7,24 @@ using UnityEngine;
 public class GridLoader : MonoBehaviour
 {
     public Grid grid;
-    public List<Vector2Int> renderedPositions = new();
+    public List<Transform> renderedPositions = new();
     public int renderDistance = 5;
+    
+    [Header("Generation settings")]
+    public float noiseScale;
+    public int seed;
     private readonly Dictionary<Vector2Int, GridChunk> _visible = new();
 
     private void Start()
     {
         grid = gameObject.AddComponent<Grid>();
+        grid.noiseScale = noiseScale;
+        grid.seed = seed;
     }
 
     private void Update()
     {
-        foreach (var centerChunk in renderedPositions.Select(pos => grid.GlobalToChunkCoord(pos)))
+        foreach (var centerChunk in renderedPositions.Select(pos => grid.GlobalToChunkCoord(new Vector2Int((int) Mathf.Floor(pos.position.x), (int) Mathf.Floor(pos.position.y)))))
         {
             for (var x = -renderDistance; x <= renderDistance; x++)
             {

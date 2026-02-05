@@ -1,6 +1,9 @@
 using UnityEngine;
 using System.Collections.Generic;
+using System.Linq;
+using Generation;
 using Unity.VisualScripting;
+using UnityEngine.Serialization;
 using UnityEngine.Tilemaps;
 
 [System.Serializable]
@@ -8,48 +11,52 @@ public class GridChunk : MonoBehaviour
 {
     public Vector2Int size;
     public Vector2Int relativePosition;
+    
+    public int seed;
+    public float noiseScale;
     public Tilemap tilemap;
     public Dictionary<Vector2Int, Machine> machines = new();
     
-    private int _seed;
-    private System.Random _random;
-    private float noiseScale;
+    public List<TileHeightProfile> _tiles;
+    private GameObject _tilemapObject;
+    private FastNoiseLite _random; // Random generator to 
+    private UnityEngine.Grid _ownGrid;
 
-    private void Start()
+    public void Initialize()
     {
-        gameObject.AddComponent<MeshRenderer>();
-        gameObject.AddComponent<MeshFilter>();
+        _tilemapObject = new GameObject("Tilemap");
+        _tilemapObject.transform.parent = transform;
+        _tilemapObject.AddComponent<Tilemap>();
+        _tilemapObject.AddComponent<TilemapRenderer>();
+        tilemap = _tilemapObject.GetComponent<Tilemap>();
+        _tiles = Resources.LoadAll<TileHeightProfile>("Tiles").ToList();
+        _ownGrid = this.AddComponent<UnityEngine.Grid>();
         machines = new Dictionary<Vector2Int, Machine>();
-        gameObject.transform.localScale = new Vector3(size.x, size.y, 1);
-        var temp = GameObject.CreatePrimitive(PrimitiveType.Quad);
-        gameObject.GetComponent<MeshFilter>().mesh = temp.GetComponent<MeshFilter>().mesh;
-        Destroy(temp);
+        _random = new FastNoiseLite(seed);
+        _random.SetFrequency(0.03f);
+        _random.SetNoiseType(FastNoiseLite.NoiseType.OpenSimplex2);
+        _random.SetFractalType(FastNoiseLite.FractalType.Ridged);
+        Generate();
     }
 
-    // public void GenerateTilemap()
-    // {
-    //     _random = new System.Random(_seed);
-    //     tilemap.ClearAllTiles();
-    //
-    //     for (var x = 0; x < size.x; x++)
-    //     {
-    //         for (var y = 0; y < size.y; y++)
-    //         {
-    //             // Calculate noise value
-    //             float noiseX = (x + relativePosition.x) * noiseScale;
-    //             float noiseY = (y + relativePosition.y) * noiseScale;
-    //             var noiseValue = Mathf.PerlinNoise(noiseX, noiseY);
-    //
-    //             // Place tile if noise value exceeds threshold
-    //             if (noiseValue <= threshold) continue;
-    //             Vector3Int cellPosition = new Vector3Int(x, y, 0);
-    //             tilemap.SetTile(cellPosition, baseTile);
-    //         }
-    //     }
-    // }
-
-    public void Generate()
+    private void GenerateTilemap()
     {
+        tilemap.ClearAllTiles();
+    
+        for (var x = 0; x < size.x; x++)
+        {
+            for (var y = 0; y < size.y; y++)
+            {
+                var height = _random.GetNoise((x + relativePosition.x * size.x) * noiseScale, (y + relativePosition.y * size.x) * noiseScale);
+                height = (height + 1) / 2; 
+                tilemap.SetTile(new Vector3Int(x, y, 0), _tiles.Find(thp => thp.maxHeight >= height && thp.minHeight <= height).tile);
+            }
+        }
+    }
+
+    private void Generate()
+    {
+        GenerateTilemap();
         foreach (var machine in machines)
         {
             machine.Value.transform.parent = transform;
