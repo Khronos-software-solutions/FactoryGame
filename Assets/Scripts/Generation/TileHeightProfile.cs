@@ -9,6 +9,6 @@ namespace Generation
         public string name; // A named description of the tile
         public float minHeight; // 0-1f
         public float maxHeight; // 0-1f
-        public Tile tile;
+        public TileBase tile;
     }
 }

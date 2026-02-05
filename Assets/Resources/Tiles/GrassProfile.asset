@@ -15,4 +15,4 @@ MonoBehaviour:
   name: grass
   minHeight: 0.3
   maxHeight: 0.8
-  tile: {fileID: 11400000, guid: e486c443860520654acaf0b09a650727, type: 2}
+  tile: {fileID: 11400000, guid: 19cc19b77a0ef806d81dd53088aa25f7, type: 2}

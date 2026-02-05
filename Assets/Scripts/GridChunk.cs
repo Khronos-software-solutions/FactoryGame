@@ -52,6 +52,7 @@ public class GridChunk : MonoBehaviour
                 tilemap.SetTile(new Vector3Int(x, y, 0), _tiles.Find(thp => thp.maxHeight >= height && thp.minHeight <= height).tile);
             }
         }
+        tilemap.RefreshAllTiles(); // Oof
     }
 
     private void Generate()
