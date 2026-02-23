@@ -19,7 +19,7 @@
         {
             "id": "pyratite",
             "name": "Pyratite",
-            "description": "Coloqually known as \"fool's gold\", this mineral bears a slight yellow lustre.",
+            "description": "Colloquially known as \"fool's gold\", this mineral bears a slight yellow lustre.",
             "usageDescription": "Can be smelted in a furnace to make iron bars. Results in iron and sulphur dust when crushed.",
             "stackSize": 100,
             "type": "raw"
